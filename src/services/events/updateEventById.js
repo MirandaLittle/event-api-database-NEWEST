@@ -45,6 +45,7 @@ const updateEventById = async (id, updatedEvent) => {
 
 // Here we can't use updateMany() because we need to update the createdBy and categories fields if it is passed
   const event = await prisma.event.update({
+    
     where: { id },
     data: {
       ...rest,
@@ -60,6 +61,17 @@ const updateEventById = async (id, updatedEvent) => {
         : undefined,
     },
   });
+
+  console.log('Data:', {
+    title,
+    description,
+    location,
+    image,
+    startTime,
+    endTime,
+    createdBy,
+    categoryIds,
+    });
 
   if (!event || event.count === 0) {
     throw new NotFoundError('Event', id)

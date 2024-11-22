@@ -5,7 +5,7 @@ import getEventById from "../services/events/getEventById.js";
 import deleteEventById from "../services/events/deleteEventById.js";
 import updateEventById from "../services/events/updateEventById.js";
 import auth from "../middleware/auth.js";
-import notFoundErrorHandler from '../middleware/notFoundErrorHandler.js';
+import notFoundErrorHandler from '../middleware/NotFoundErrorHandler.js';
 
 const router = Router();
 
@@ -68,7 +68,7 @@ router.put("/:id", auth, async (req, res, next) => {
   try {
   const { id } = req.params;
   const {
-    name,
+    title,
     description,
     location,
     image,
@@ -78,7 +78,7 @@ router.put("/:id", auth, async (req, res, next) => {
     categoryIds,
   } = req.body;
   const event = await updateEventById(id, {
-    name,
+    title,
     description,
     location,
     image,
