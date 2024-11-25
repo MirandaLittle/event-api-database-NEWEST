@@ -68,23 +68,23 @@ router.put("/:id", auth, async (req, res, next) => {
   try {
   const { id } = req.params;
   const {
+    createdBy,
     title,
     description,
     location,
     image,
     startTime,
     endTime,
-    createdBy,
     categoryIds,
   } = req.body;
   const event = await updateEventById(id, {
+    createdBy,
     title,
     description,
     location,
     image,
     startTime,
     endTime,
-    createdBy,
     categoryIds,
   });
 

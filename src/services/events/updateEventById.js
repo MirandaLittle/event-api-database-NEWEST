@@ -44,7 +44,9 @@ const updateEventById = async (id, updatedEvent) => {
   const { categoryIds, createdBy, ...rest } = updatedEvent;
 
 // Here we can't use updateMany() because we need to update the createdBy and categories fields if it is passed
-  const event = await prisma.event.update({
+  
+if (title !== undefined) {
+const event = await prisma.event.update({
     
     where: { id },
     data: {
@@ -62,22 +64,30 @@ const updateEventById = async (id, updatedEvent) => {
     },
   });
 
+  if (!event || event.count === 0) {
+    throw new NotFoundError('Event', id)
+  }
+
+return event;
+  
+    // Voer de data in met Prisma
+} else {
+    console.log("title is missing")
+}
   console.log('Data:', {
+    createdBy,
     title,
     description,
     location,
     image,
     startTime,
     endTime,
-    createdBy,
     categoryIds,
     });
+  
 
-  if (!event || event.count === 0) {
-    throw new NotFoundError('Event', id)
-  }
 
-return event;
+
 };
 
 
